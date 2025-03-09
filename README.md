@@ -3,7 +3,7 @@
 * *Date Created*: 09 Mar 2025
 * *Last Modification Date*: 09 Mar 2025
 * *Lab URL*:
-    Gitlab: https://git.cs.dal.ca/afernando/csci-3172/-/tree/main/Labs/Lab5?ref_type=heads
+    Gitlab: https://git.cs.dal.ca/afernando/csci-3172/-/tree/main/Labs/lab5
     Netlify: https://spotify-api-test-akil.netlify.app/
 ## Authors
 
