@@ -19,14 +19,10 @@ async function searchMusic() {
             if (type === "artist") {
                 resultHtml += `
                     <li>
-                        <strong>${item.name}</strong> (ID: ${item.id})
-                        <br>Sort Name: ${item.sortName}
+                        <strong>${item.name}</strong>
                         <br>Area: ${item.area}
                         <br>Genres: ${item.genres}
-                        <br>Begin Date: ${item.beginDate}
-                        <br>End Date: ${item.endDate}
-                        <br>Albums: ${item.releaseGroups}
-                        <br>Links: ${item.links}
+                        <br><img src="${item.imageUrl}" alt="${item.name}" style="width: 200px; height: auto;"/>
                     </li>
                 `;
             } else if (type === "album") {
