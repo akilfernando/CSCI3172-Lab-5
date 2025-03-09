@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Discovery</title>
+    <title>Music Search App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Music Discovery</h1>
-        <input type="text" id="artist" placeholder="Enter artist name">
-        <button onclick="searchArtist()">Search</button>
+        <h1>Music Search</h1>
+        <select id="searchType">
+            <option value="artist">Artist</option>
+            <option value="album">Album</option>
+            <option value="song">Song</option>
+        </select>
+        <input type="text" id="query" placeholder="Enter search term">
+        <button onclick="searchMusic()">Search</button>
         <div id="result"></div>
     </div>
     <script src="script.js"></script>

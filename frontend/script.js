@@ -1,20 +1,31 @@
-async function searchArtist() {
-    const artist = document.getElementById("artist").value;
-    if (!artist) {
-        alert("Please enter an artist name.");
+async function searchMusic() {
+    const query = document.getElementById("query").value;
+    const type = document.getElementById("searchType").value;
+
+    if (!query) {
+        alert("Please enter a search term.");
         return;
     }
 
-    const response = await fetch(`/api/search?artist=${artist}`);
+    const response = await fetch(`/api/search/${type}?query=${query}`);
     const data = await response.json();
 
-    if (data.error) {
-        document.getElementById("result").innerHTML = `<p>${data.error}</p>`;
+    let resultHtml = "";
+    if (data.length === 0) {
+        resultHtml = "<p>No results found.</p>";
     } else {
-        document.getElementById("result").innerHTML = `
-            <h2>${data.artist}</h2>
-            <p>Country: ${data.country}</p>
-            <p>Description: ${data.disambiguation}</p>
-        `;
+        resultHtml = "<ul>";
+        data.forEach(item => {
+            if (type === "artist") {
+                resultHtml += `<li><strong>${item.name}</strong> (ID: ${item.id})</li>`;
+            } else if (type === "album") {
+                resultHtml += `<li><strong>${item.title}</strong> by ${item["artist-credit"]?.[0]?.name || "Unknown Artist"}</li>`;
+            } else if (type === "song") {
+                resultHtml += `<li><strong>${item.title}</strong> - ${item["artist-credit"]?.[0]?.name || "Unknown Artist"}</li>`;
+            }
+        });
+        resultHtml += "</ul>";
     }
+
+    document.getElementById("result").innerHTML = resultHtml;
 }

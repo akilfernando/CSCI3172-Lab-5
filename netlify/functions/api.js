@@ -2,35 +2,57 @@ import express from "express";
 import serverless from "serverless-http";
 import fetch from "node-fetch";
 
-const app = express();
+const api = express();
 const router = express.Router();
 
-router.get("/search", async (req, res) => {
-    const artist = req.query.artist;
-    if (!artist) {
-        return res.status(400).json({ error: "Artist name is required" });
-    }
+// MusicBrainz API base URL
+const BASE_URL = "https://musicbrainz.org/ws/2";
+
+// Function to fetch data from MusicBrainz API
+const fetchMusicData = async (endpoint, query) => {
+    const url = `${BASE_URL}/${endpoint}?query=${query}&fmt=json`;
+    const response = await fetch(url);
+    return response.json();
+};
+
+// Search for artists
+router.get("/search/artist", async (req, res) => {
+    const { query } = req.query;
+    if (!query) return res.status(400).json({ error: "Query is required" });
 
     try {
-        const response = await fetch(`https://musicbrainz.org/ws/2/artist/?query=${artist}&fmt=json`);
-        const data = await response.json();
-        
-        if (!data.artists || data.artists.length === 0) {
-            return res.status(404).json({ error: "Artist not found" });
-        }
-
-        res.json({
-            artist: data.artists[0].name,
-            country: data.artists[0].country || "Unknown",
-            disambiguation: data.artists[0].disambiguation || "No description",
-            id: data.artists[0].id,
-        });
-
+        const data = await fetchMusicData("artist", query);
+        res.json(data.artists || []);
     } catch (error) {
         res.status(500).json({ error: "Server error" });
     }
 });
 
-app.use("/api/", router);
+// Search for albums
+router.get("/search/album", async (req, res) => {
+    const { query } = req.query;
+    if (!query) return res.status(400).json({ error: "Query is required" });
 
-export const handler = serverless(app);
+    try {
+        const data = await fetchMusicData("release-group", query);
+        res.json(data["release-groups"] || []);
+    } catch (error) {
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+// Search for songs
+router.get("/search/song", async (req, res) => {
+    const { query } = req.query;
+    if (!query) return res.status(400).json({ error: "Query is required" });
+
+    try {
+        const data = await fetchMusicData("recording", query);
+        res.json(data.recordings || []);
+    } catch (error) {
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+api.use("/api/", router);
+export const handler = serverless(api);
