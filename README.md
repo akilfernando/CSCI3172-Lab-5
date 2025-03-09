@@ -26,6 +26,3 @@ A web app that allows users to search for **artists**, **albums**, and **songs**
 - **Backend**: Node.js, Express
 - **API**: MusicBrainz
 - **Deployment**: Netlify
-   ```
-
----
