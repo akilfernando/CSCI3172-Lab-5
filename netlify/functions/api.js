@@ -22,11 +22,26 @@ router.get("/search/artist", async (req, res) => {
 
     try {
         const data = await fetchMusicData("artist", query);
-        res.json(data.artists || []);
+
+        // Map through the artists and add additional information
+        const artists = data.artists?.map(artist => ({
+            name: artist.name,
+            id: artist.id,
+            sortName: artist.sortname,
+            area: artist.area ? artist.area.name : "Unknown",
+            genres: artist.tags ? artist.tags.map(tag => tag.name).join(", ") : "No genres available",
+            beginDate: artist.begin_date ? artist.begin_date : "Unknown",
+            endDate: artist.end_date ? artist.end_date : "Active",
+            releaseGroups: artist['release-groups'] ? artist['release-groups'].map(group => group.title).join(", ") : "No albums available",
+            links: artist.relations ? artist.relations.map(relation => relation.url.resource).join(", ") : "No links available"
+        }));
+
+        res.json(artists || []);
     } catch (error) {
         res.status(500).json({ error: "Server error" });
     }
 });
+
 
 // Search for albums
 router.get("/search/album", async (req, res) => {

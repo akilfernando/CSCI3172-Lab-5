@@ -17,7 +17,18 @@ async function searchMusic() {
         resultHtml = "<ul>";
         data.forEach(item => {
             if (type === "artist") {
-                resultHtml += `<li><strong>${item.name}</strong> (ID: ${item.id})</li>`;
+                resultHtml += `
+                    <li>
+                        <strong>${item.name}</strong> (ID: ${item.id})
+                        <br>Sort Name: ${item.sortName}
+                        <br>Area: ${item.area}
+                        <br>Genres: ${item.genres}
+                        <br>Begin Date: ${item.beginDate}
+                        <br>End Date: ${item.endDate}
+                        <br>Albums: ${item.releaseGroups}
+                        <br>Links: ${item.links}
+                    </li>
+                `;
             } else if (type === "album") {
                 resultHtml += `<li><strong>${item.title}</strong> by ${item["artist-credit"]?.[0]?.name || "Unknown Artist"}</li>`;
             } else if (type === "song") {
