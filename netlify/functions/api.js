@@ -27,9 +27,7 @@ router.get("/search/artist", async (req, res) => {
         const artists = data.artists?.map(artist => ({
             name: artist.name,
             area: artist.area ? artist.area.name : "Unknown",
-            genres: artist.tags ? artist.tags.map(tag => tag.name).join(", ") : "No genres available",
-            // Get image URL from relations if available
-            imageUrl: artist.relations?.find(relation => relation.type === "image")?.url.resource || "No image available"
+            genres: artist.tags ? artist.tags.map(tag => tag.name).join(", ") : "No genres available"
         }));
 
         res.json(artists || []);

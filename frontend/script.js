@@ -22,7 +22,6 @@ async function searchMusic() {
                         <strong>${item.name}</strong>
                         <br>Area: ${item.area}
                         <br>Genres: ${item.genres}
-                        <br><img src="${item.imageUrl}" alt="${item.name}" style="width: 200px; height: auto;"/>
                     </li>
                 `;
             } else if (type === "album") {
