@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta information for character set and responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title of the page displayed in the browser tab -->
     <title>Music Search App</title>
+    
+    <!-- Link to external CSS for styling -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Main container for the music search form and results -->
     <div class="container">
+        <!-- Heading for the app -->
         <h1>Music Search</h1>
+        
+        <!-- Dropdown to select the type of search (artist, album, song) -->
         <select id="searchType">
             <option value="artist">Artist</option>
             <option value="album">Album</option>
             <option value="song">Song</option>
         </select>
+        
+        <!-- Input field for entering search query -->
         <input type="text" id="query" placeholder="Enter search term">
+        
+        <!-- Button that triggers the search function -->
         <button onclick="searchMusic()">Search</button>
+        
+        <!-- Div to display search results -->
         <div id="result"></div>
     </div>
+    
+    <!-- Link to external JavaScript file for functionality -->
     <script src="script.js"></script>
 </body>
 </html>
